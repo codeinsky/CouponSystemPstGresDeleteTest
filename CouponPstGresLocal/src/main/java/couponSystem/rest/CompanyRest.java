@@ -54,7 +54,7 @@ public class CompanyRest {
 	@RequestMapping (value="/company/createCoupon" , method = RequestMethod.POST , consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Coupon createCoupon(@RequestBody Coupon coupon , HttpServletRequest request) {
 		//CompanyFacadeF myFacade = (CompanyFacadeF) request.getSession().getAttribute("facade");
-		myFacade.setCompanyIdLogged(206);
+		myFacade.setCompanyIdLogged(207);
 		Coupon createdCoupon = myFacade.createCoupon(coupon);
 		return createdCoupon; 
 	}

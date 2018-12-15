@@ -76,7 +76,6 @@ public class Coupon  {
 	@JoinTable(name = "customer_coupon",
 				joinColumns = @JoinColumn(name = "customer_id"),
 				inverseJoinColumns = @JoinColumn(name = "coupon_id"))
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Collection<Customer> customers;
 	
 

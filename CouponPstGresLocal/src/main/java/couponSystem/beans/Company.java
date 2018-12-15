@@ -45,9 +45,8 @@ public class Company {
 	@Column
 	private String email;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
 	@JoinColumn(name="COMPANY_ID")
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore 
 	 private Collection<Coupon> coupons ;
 	/**
