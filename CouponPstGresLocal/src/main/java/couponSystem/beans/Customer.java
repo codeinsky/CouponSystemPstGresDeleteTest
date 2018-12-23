@@ -43,11 +43,7 @@ public class Customer {
 	private String password;
 
 	/** The coupon. */
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH , CascadeType.MERGE , CascadeType.REFRESH })
-	@JoinTable(name = "customer_coupon",
-						joinColumns = @JoinColumn(name = "customer_id"),
-						inverseJoinColumns = @JoinColumn(name = "coupon_id"))
-	@OnDelete(action = OnDeleteAction.CASCADE)
+	@ManyToMany(mappedBy="customers" ,fetch = FetchType.EAGER, cascade = {CascadeType.DETACH , CascadeType.MERGE , CascadeType.REFRESH })
 	@JsonIgnore 
 	private Collection<Coupon> coupons;
 
@@ -82,6 +78,10 @@ public class Customer {
 		Collection<Coupon> coupons = null ; 
 		coupons = this.getCoupons();
 		coupons.add(coupon);
+		this.setCoupons(coupons);
+		System.out.println("from buy coupon");
+	//	System.out.println("Coupons after purchase: " + this.toString());
+		
 	} 
 	
 	public boolean ifCouponsPurchased(int id) {
@@ -148,6 +148,11 @@ public class Customer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", custName=" + custName + ", password=" + password + ", coupons=" + coupons
+				+ "]";
+	}
 	
 
 	/*
@@ -155,10 +160,6 @@ public class Customer {
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
-	public String toString() {
-		return "Customer [id=" + id + ", custName=" + custName + ", password=" + password + ", coupons=" + coupons
-				+ "]";
-	}
+	
 
 }

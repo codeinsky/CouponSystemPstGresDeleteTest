@@ -66,7 +66,7 @@ public class AdminFacadeF extends ClientCouponFacade{
 	
 	public void  removeCompany(Company company) {
 		if (companyRepo.existsById(company.getId())) {
-			companyRepo.delete(company);
+			companyRepo.deleteById(company.getId());
 			System.out.println("Company removed");
 		}
 		else {
@@ -167,7 +167,10 @@ public class AdminFacadeF extends ClientCouponFacade{
 
 	public Customer removeCustomer(Customer customer) {
 		Customer removedCustomer = null;
-		customerRepo.delete(customer);
+		removedCustomer = customerRepo.findById(customer.getId()).get();
+		removedCustomer.setCoupons(null);
+		customerRepo.save(removedCustomer);
+		customerRepo.deleteById(removedCustomer.getId());
 		removedCustomer = customer;
 		System.out.println("Customer with name : " +customer.getCustName() +" Removed");
 		return removedCustomer;

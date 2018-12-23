@@ -72,10 +72,10 @@ public class Coupon  {
 	/**
 	 * Instantiates a new coupon.
 	 */
-	@ManyToMany(fetch=FetchType.EAGER, cascade = {CascadeType.DETACH , CascadeType.REFRESH})
-	@JoinTable(name = "customer_coupon",
-				joinColumns = @JoinColumn(name = "customer_id"),
-				inverseJoinColumns = @JoinColumn(name = "coupon_id"))
+	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.DETACH , CascadeType.REFRESH})
+//	@JoinTable(name = "customer_coupon",
+//				joinColumns = @JoinColumn(name = "customer_id"),
+//				inverseJoinColumns = @JoinColumn(name = "coupon_id"))
 	private Collection<Customer> customers;
 	
 
@@ -112,6 +112,14 @@ public class Coupon  {
 	 */
 	public int getId() {
 		return id;
+	}
+	
+	public void buyCoupon(Customer customer) {
+		Collection<Customer> customers = null;
+		customers =this.getCustomers();
+		customers.add(customer);
+		this.setCustomers(customers);
+		// System.out.println("Who buy my coupon " + this.getCustomers());
 	}
 	
 	public boolean ifSoldOut() {

@@ -57,7 +57,7 @@ public class CustomerFacadeF extends ClientCouponFacade{
 	
 	public Customer getMyCustomer() {
 		Customer myCustomer = null;
-		myCustomer = customerRepo.findById(customerLogged).get();
+		myCustomer = customerRepo.findById(this.customerLogged).get();
 		return myCustomer ;
 	}
 	
@@ -117,13 +117,17 @@ public class CustomerFacadeF extends ClientCouponFacade{
 			
 			
 		if (dateFlag && amountFlag && alreadyPurchasedFlag) {
-			int amount = checkedCoupon.getAmount();
-			checkedCoupon.setAmount(amount - 1);
-			couponRepo.save(checkedCoupon);
+			checkedCoupon.setAmount(checkedCoupon.getAmount()-1);
 			mySelf.buyCoupon(checkedCoupon);
-			System.out.println("I am : " + mySelf.toString());
-			customerRepo.save(mySelf);
-			System.out.println("Coupon with ID : " + id + " purchased  , enjoy it");
+			checkedCoupon.buyCoupon(mySelf);
+//			System.out.println(mySelf.toString());
+			couponRepo.save(checkedCoupon);
+//			System.out.println(checkedCoupon.getCustomers());
+//			mySelf.buyCoupon(checkedCoupon);
+//			couponRepo.save(checkedCoupon);
+//			customerRepo.save(mySelf);
+//			System.out.println("I am : " + mySelf.toString());
+//			System.out.println("Coupon with ID : " + id + " purchased  , enjoy it");
 
 		}
 		}
