@@ -1,9 +1,12 @@
 package couponSystem.facade;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import couponSystem.beans.Company;
+import couponSystem.beans.Coupon;
 import couponSystem.beans.Customer;
 import couponSystem.exception.CouponSystemException;
 import couponSystem.repos.CompanyRepo;
@@ -164,17 +167,24 @@ public class AdminFacadeF extends ClientCouponFacade{
 	 * Removes the customer from Customer table as well.
 	 * @param customer the customer
 	 */
-
+	
+	
+	// issue with customer delete 
 	public Customer removeCustomer(Customer customer) {
-		Customer removedCustomer = null;
-		removedCustomer = customerRepo.findById(customer.getId()).get();
-		removedCustomer.setCoupons(null);
-		customerRepo.save(removedCustomer);
-		customerRepo.deleteById(removedCustomer.getId());
-		removedCustomer = customer;
+
+		//  Retrieves all coupons that were purchased by Customer  that admin wants do remove  
+		ArrayList<Coupon> couponsOwnByCustomer = couponsRepo.findByCustomers_id(customer.getId());
+		// removes all relations Coupons Customer from join table prior removing the Customer 
+		for (Coupon coupon : couponsOwnByCustomer) {
+			System.out.println(coupon.getId());
+			System.out.println(coupon.getCustomers().remove(customer));
+			couponsRepo.save(coupon);
+			}
+		// removes the company 
+		customerRepo.deleteById(customer.getId());
 		System.out.println("Customer with name : " +customer.getCustName() +" Removed");
-		return removedCustomer;
-		// need to remove all other tables
+		return customer;
+		
 		
 	}
 

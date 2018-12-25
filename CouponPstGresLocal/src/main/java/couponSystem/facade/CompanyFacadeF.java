@@ -85,10 +85,10 @@ public class CompanyFacadeF extends ClientCouponFacade {
 				System.out.println("Coupon with " + coupon.getTitle() + " already exists");
 			} 
 			else {  
-				System.out.println("Test from create company" + coupon.toString());
+				//System.out.println("Test from create company" + coupon.toString());
 				Company myComp  = getMyCompany();
 				myComp.getCoupons().add(coupon);
-				System.out.println("My company is :" + myComp.toString());
+				//System.out.println("My company is :" + myComp.toString());
 				companyRepo.save(myComp);
 				createdCoupon = coupon;
 				System.out.println("Coupon created");

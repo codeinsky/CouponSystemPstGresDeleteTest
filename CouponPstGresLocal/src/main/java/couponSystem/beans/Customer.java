@@ -43,7 +43,7 @@ public class Customer {
 	private String password;
 
 	/** The coupon. */
-	@ManyToMany(mappedBy="customers" ,fetch = FetchType.EAGER, cascade = {CascadeType.DETACH , CascadeType.MERGE , CascadeType.REFRESH })
+	@ManyToMany(mappedBy="customers" ,fetch = FetchType.LAZY, cascade = {CascadeType.DETACH , CascadeType.MERGE , CascadeType.REFRESH })
 	@JsonIgnore 
 	private Collection<Coupon> coupons;
 
@@ -153,6 +153,31 @@ public class Customer {
 		return "Customer [id=" + id + ", custName=" + custName + ", password=" + password + ", coupons=" + coupons
 				+ "]";
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((custName == null) ? 0 : custName.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Customer other = (Customer) obj;
+		if (custName == null) {
+			if (other.custName != null)
+				return false;
+		} else if (!custName.equals(other.custName))
+			return false;
+		return true;
+	}
+	
+	
 	
 
 	/*
