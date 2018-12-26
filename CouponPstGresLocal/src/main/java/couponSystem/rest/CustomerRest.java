@@ -42,7 +42,7 @@ public class CustomerRest {
 	@RequestMapping(value="/customer/purchaseCoupon/{id}" , method= RequestMethod.GET) 
 	public @ResponseBody ResponseEntity purchaseCoupon(@PathVariable ("id") int id , HttpServletRequest request) {
 		//CustomerFacadeF myFacade = (CustomerFacadeF) request.getSession().getAttribute("facade");
-		myFacade.setCustomerLogged(3);
+		myFacade.setCustomerLogged(6);
 		try {
 			myFacade.purchaseCoupon(id);
 			return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body("Coupon is Yours");
@@ -59,7 +59,7 @@ public class CustomerRest {
 	@RequestMapping(value="/customer/getAllMyCoupons" , method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<Coupon> getMyCoupons(HttpServletRequest request){
 		//CustomerFacadeF myFacade = (CustomerFacadeF) request.getSession().getAttribute("facade");
-		myFacade.setCustomerLogged(3);
+		myFacade.setCustomerLogged(6);
 		return myFacade.getAllMyCoupons();
 	}
 	
@@ -74,14 +74,14 @@ public class CustomerRest {
 	public Collection<Coupon> getCouponsFiltered(@PathVariable ("filter") String filter,@PathVariable  ("reference") String reference , 
 			HttpServletRequest request) {
 		//CustomerFacadeF myFacade = (CustomerFacadeF) request.getSession().getAttribute("facade");
-		myFacade.setCustomerLogged(3);
+		myFacade.setCustomerLogged(6);
 		return myFacade.getMyCouponsSortedByType(filter , reference);
 	}
 	
 	@RequestMapping(value="/customer/getAllCoupons/" , method = RequestMethod.GET ,produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Coupon> getAllCoupons(HttpServletRequest request){
 		//CustomerFacadeF myFacade = (CustomerFacadeF) request.getSession().getAttribute("facade");
-		myFacade.setCustomerLogged(3);
+		myFacade.setCustomerLogged(6);
 		return myFacade.getAllCouponsToBuy();
 	}
 

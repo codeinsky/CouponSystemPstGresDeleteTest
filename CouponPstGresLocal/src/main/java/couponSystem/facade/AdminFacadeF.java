@@ -172,7 +172,7 @@ public class AdminFacadeF extends ClientCouponFacade{
 	// issue with customer delete 
 	public Customer removeCustomer(Customer customer) {
 
-		//  Retrieves all coupons that were purchased by Customer  that admin wants do remove  
+		//  Retrieves all coupons that were purchased by Customer, that admin wants to remove  
 		ArrayList<Coupon> couponsOwnByCustomer = couponsRepo.findByCustomers_id(customer.getId());
 		// removes all relations Coupons Customer from join table prior removing the Customer 
 		for (Coupon coupon : couponsOwnByCustomer) {
